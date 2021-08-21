@@ -13,21 +13,26 @@ beaufort_encode_chr(char src, char key)
     int key_offset = key - (isupper(key) ? 'A' : 'a');
 
     // Add the offset
-    ltr += key_offset;
-    ltr %= 26;
+    key_offset -= ltr;
+    if (key_offset < 0) key_offset += 26;
 
-    return (isupper(src) ? 'A' : 'a') + ltr;
+    return (isupper(src) ? 'A' : 'a') + key_offset;
 }
 
 void
-beaufort_encode(char *txt, char *key, char *dest)
+beaufort_encode(char *txt, char *key, char **dest)
 {
-    unsigned long key_len = strlen(key);
-    unsigned long key_i = 0;
-    for (unsigned long i = 0; i < strlen(txt); i++)
+    int i = 0;
+    int key_len = strlen(key);
+    int key_i = 0;
+
+    while (txt[i] != '\0')
     {
         // Only do it to alpha chars
         if (isalpha(txt[i]))
-            dest[i] = beaufort_encode_chr(txt[i], key[key_i++ % key_len]);
+            (*dest)[i] = beaufort_encode_chr(txt[i], key[key_i++ % key_len]);
+        else
+            (*dest)[i] = txt[i];
+        i++;
     }
 }

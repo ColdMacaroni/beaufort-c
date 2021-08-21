@@ -16,10 +16,12 @@ main(int argc, char **argv)
 {
     char *key = calloc(sizeof(char), BUFSIZ);
     char *txt = calloc(sizeof(char), BUFSIZ);
+    char *dest = calloc(sizeof(char), BUFSIZ);
 
     // Fill em with 0s
     memset(key, 0, sizeof(char) * BUFSIZ);
     memset(txt, 0, sizeof(char) * BUFSIZ);
+    memset(dest, 0, sizeof(char) * BUFSIZ);
 
     FILE *txt_file = stdin;
 
@@ -65,14 +67,19 @@ main(int argc, char **argv)
         read_until_eof(txt_file, &txt, BUFSIZ - 1);
     }
 
-    printf("Key: %s\n", key);
-    printf("Text: %s\n", txt);
+    /* printf("Key: %s\n", key); */
+    /* printf("Text: %s\n", txt); */
+
+    beaufort_encode(txt, key, &dest);
+
+    printf("%s", dest);
 
     if (txt_file != NULL || txt_file != stdin)
         fclose(txt_file);
 
     free(key);
     free(txt);
+    free(dest);
 
     return 0;
 }
