@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "beaufort.h"
+
 void
 key_copy(char *source, char **dest);
 
@@ -58,7 +60,8 @@ main(int argc, char **argv)
     // Read from stdin if not given via argument
     if (txt_file != NULL)
     {
-        printf("Enter text. EOF to end input: ");
+        if (txt_file == stdin) printf("Enter text. EOF to end input: ");
+
         read_until_eof(txt_file, &txt, BUFSIZ - 1);
     }
 
