@@ -35,7 +35,7 @@ main(int argc, char **argv)
                 key_copy(argv[2], &key);
             else
             {
-                fprintf(stderr, "Please enter a key");
+                fprintf(stderr, "Please enter a key\n");
                 exit(1);
             }
         }
