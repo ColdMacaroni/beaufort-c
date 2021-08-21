@@ -46,10 +46,16 @@ main(int argc, char **argv)
             txt_file = stdin;
     }
 
-    read_until_eof(txt_file, &txt, BUFSIZ - 1);
+    
+
+    if (txt_file != NULL)
+        read_until_eof(txt_file, &txt, BUFSIZ - 1);
 
     printf("Key: %s\n", key);
     printf("Text: %s\n", txt);
+
+    if (txt_file != NULL || txt_file != stdin)
+        fclose(txt_file);
 
     free(key);
     free(txt);
